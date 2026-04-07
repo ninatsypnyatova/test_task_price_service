@@ -1,4 +1,4 @@
-package com.ecommerce.domain.service;
+package com.ecommerce.application.service;
 
 import com.ecommerce.domain.model.Price;
 import com.ecommerce.domain.port.in.GetPriceUseCase;

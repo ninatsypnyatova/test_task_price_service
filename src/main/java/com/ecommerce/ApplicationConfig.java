@@ -2,7 +2,7 @@ package com.ecommerce;
 
 import com.ecommerce.domain.port.in.GetPriceUseCase;
 import com.ecommerce.domain.port.out.PriceRepositoryPort;
-import com.ecommerce.domain.service.GetPriceService;
+import com.ecommerce.application.service.GetPriceService;
 import com.ecommerce.infrastructure.persistence.JpaPriceRepository;
 import com.ecommerce.infrastructure.persistence.PriceRepositoryAdapter;
 import org.springframework.context.annotation.Bean;
