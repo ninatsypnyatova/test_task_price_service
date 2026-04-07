@@ -37,13 +37,13 @@ public class PriceController {
 
     private PriceResponse toResponse(Price price) {
         return new PriceResponse(
-                price.getProductId(),
-                price.getBrandId(),
-                price.getPriceList(),
-                price.getStartDate(),
-                price.getEndDate(),
-                price.getPrice(),
-                price.getCurrency()
+                price.productId(),
+                price.brandId(),
+                price.priceList(),
+                price.startDate(),
+                price.endDate(),
+                price.price(),
+                price.currency()
         );
     }
 }
