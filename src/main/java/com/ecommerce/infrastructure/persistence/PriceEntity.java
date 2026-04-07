@@ -14,6 +14,9 @@ import java.time.LocalDateTime;
 @Table(name = "PRICES")
 public class PriceEntity {
 
+    protected PriceEntity() {
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
