@@ -177,3 +177,13 @@ Run them with:
 ```bash
 mvn test
 ```
+
+---
+
+## Postman collection
+
+A ready-to-import Postman collection with all 5 test requests is located at:
+
+postman/ecommerce-price-service.postman_collection.json
+
+---
