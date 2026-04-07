@@ -2,6 +2,7 @@ package com.ecommerce.infrastructure.persistence;
 
 import com.ecommerce.domain.model.Price;
 import com.ecommerce.domain.port.out.PriceRepositoryPort;
+import org.springframework.data.domain.PageRequest;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -17,7 +18,9 @@ public class PriceRepositoryAdapter implements PriceRepositoryPort {
     @Override
     public Optional<Price> findApplicablePrice(LocalDateTime applicationDate, Long productId, Long brandId) {
         return jpaPriceRepository
-                .findTopByBrandIdAndProductIdAndDateRange(brandId, productId, applicationDate)
+                .findTopByBrandIdAndProductIdAndDateRange(brandId, productId, applicationDate, PageRequest.of(0, 1))
+                .stream()
+                .findFirst()
                 .map(this::toPrice);
     }
 

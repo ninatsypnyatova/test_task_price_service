@@ -1,11 +1,12 @@
 package com.ecommerce.infrastructure.persistence;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
+import java.util.List;
 
 public interface JpaPriceRepository extends JpaRepository<PriceEntity, Long> {
 
@@ -14,10 +15,10 @@ public interface JpaPriceRepository extends JpaRepository<PriceEntity, Long> {
            "AND p.productId = :productId " +
            "AND p.startDate <= :applicationDate " +
            "AND p.endDate >= :applicationDate " +
-           "ORDER BY p.priority DESC " +
-           "LIMIT 1")
-    Optional<PriceEntity> findTopByBrandIdAndProductIdAndDateRange(
+           "ORDER BY p.priority DESC")
+    List<PriceEntity> findTopByBrandIdAndProductIdAndDateRange(
             @Param("brandId") Long brandId,
             @Param("productId") Long productId,
-            @Param("applicationDate") LocalDateTime applicationDate);
+            @Param("applicationDate") LocalDateTime applicationDate,
+            Pageable pageable);
 }
