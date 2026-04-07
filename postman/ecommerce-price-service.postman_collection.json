@@ -1,0 +1,279 @@
+{
+  "info": {
+    "_postman_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "name": "E-commerce Price Service",
+    "description": "Postman collection for the E-commerce Price Query Service.\n\nAll requests target http://localhost:8080 — start the application first with:\n  mvn spring-boot:run",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    },
+    {
+      "key": "productId",
+      "value": "35455",
+      "type": "string"
+    },
+    {
+      "key": "brandId",
+      "value": "1",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Test 1 – 10:00 on 14th (price list 1, €35.50)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/prices?applicationDate=2020-06-14T10:00:00&productId={{productId}}&brandId={{brandId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "prices"],
+          "query": [
+            {
+              "key": "applicationDate",
+              "value": "2020-06-14T10:00:00",
+              "description": "Application date/time (ISO-8601)"
+            },
+            {
+              "key": "productId",
+              "value": "{{productId}}",
+              "description": "Product identifier"
+            },
+            {
+              "key": "brandId",
+              "value": "{{brandId}}",
+              "description": "Brand identifier (1 = ZARA)"
+            }
+          ]
+        },
+        "description": "Request at 10:00 on the 14th for product 35455 and brand 1.\nExpected: price list 1, price €35.50 (only tariff 1 is active at this time)."
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status 200', () => pm.response.to.have.status(200));",
+              "pm.test('Price list is 1', () => pm.expect(pm.response.json().priceList).to.eql(1));",
+              "pm.test('Price is 35.50', () => pm.expect(pm.response.json().price).to.eql(35.50));",
+              "pm.test('Currency is EUR', () => pm.expect(pm.response.json().currency).to.eql('EUR'));"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Test 2 – 16:00 on 14th (price list 2, €25.45)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/prices?applicationDate=2020-06-14T16:00:00&productId={{productId}}&brandId={{brandId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "prices"],
+          "query": [
+            {
+              "key": "applicationDate",
+              "value": "2020-06-14T16:00:00"
+            },
+            {
+              "key": "productId",
+              "value": "{{productId}}"
+            },
+            {
+              "key": "brandId",
+              "value": "{{brandId}}"
+            }
+          ]
+        },
+        "description": "Request at 16:00 on the 14th for product 35455 and brand 1.\nExpected: price list 2, price €25.45 (tariff 2 has higher priority than tariff 1)."
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status 200', () => pm.response.to.have.status(200));",
+              "pm.test('Price list is 2', () => pm.expect(pm.response.json().priceList).to.eql(2));",
+              "pm.test('Price is 25.45', () => pm.expect(pm.response.json().price).to.eql(25.45));",
+              "pm.test('Currency is EUR', () => pm.expect(pm.response.json().currency).to.eql('EUR'));"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Test 3 – 21:00 on 14th (price list 1, €35.50)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/prices?applicationDate=2020-06-14T21:00:00&productId={{productId}}&brandId={{brandId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "prices"],
+          "query": [
+            {
+              "key": "applicationDate",
+              "value": "2020-06-14T21:00:00"
+            },
+            {
+              "key": "productId",
+              "value": "{{productId}}"
+            },
+            {
+              "key": "brandId",
+              "value": "{{brandId}}"
+            }
+          ]
+        },
+        "description": "Request at 21:00 on the 14th for product 35455 and brand 1.\nExpected: price list 1, price €35.50 (tariff 2 expired at 18:30; only tariff 1 remains active)."
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status 200', () => pm.response.to.have.status(200));",
+              "pm.test('Price list is 1', () => pm.expect(pm.response.json().priceList).to.eql(1));",
+              "pm.test('Price is 35.50', () => pm.expect(pm.response.json().price).to.eql(35.50));",
+              "pm.test('Currency is EUR', () => pm.expect(pm.response.json().currency).to.eql('EUR'));"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Test 4 – 10:00 on 15th (price list 3, €30.50)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/prices?applicationDate=2020-06-15T10:00:00&productId={{productId}}&brandId={{brandId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "prices"],
+          "query": [
+            {
+              "key": "applicationDate",
+              "value": "2020-06-15T10:00:00"
+            },
+            {
+              "key": "productId",
+              "value": "{{productId}}"
+            },
+            {
+              "key": "brandId",
+              "value": "{{brandId}}"
+            }
+          ]
+        },
+        "description": "Request at 10:00 on the 15th for product 35455 and brand 1.\nExpected: price list 3, price €30.50 (tariff 3 has higher priority than tariff 1)."
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status 200', () => pm.response.to.have.status(200));",
+              "pm.test('Price list is 3', () => pm.expect(pm.response.json().priceList).to.eql(3));",
+              "pm.test('Price is 30.50', () => pm.expect(pm.response.json().price).to.eql(30.50));",
+              "pm.test('Currency is EUR', () => pm.expect(pm.response.json().currency).to.eql('EUR'));"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Test 5 – 21:00 on 16th (price list 4, €38.95)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/prices?applicationDate=2020-06-16T21:00:00&productId={{productId}}&brandId={{brandId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "prices"],
+          "query": [
+            {
+              "key": "applicationDate",
+              "value": "2020-06-16T21:00:00"
+            },
+            {
+              "key": "productId",
+              "value": "{{productId}}"
+            },
+            {
+              "key": "brandId",
+              "value": "{{brandId}}"
+            }
+          ]
+        },
+        "description": "Request at 21:00 on the 16th for product 35455 and brand 1.\nExpected: price list 4, price €38.95 (tariff 4 has higher priority than tariff 1)."
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status 200', () => pm.response.to.have.status(200));",
+              "pm.test('Price list is 4', () => pm.expect(pm.response.json().priceList).to.eql(4));",
+              "pm.test('Price is 38.95', () => pm.expect(pm.response.json().price).to.eql(38.95));",
+              "pm.test('Currency is EUR', () => pm.expect(pm.response.json().currency).to.eql('EUR'));"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "404 – No price found (unknown product)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/prices?applicationDate=2020-06-14T10:00:00&productId=99999&brandId=1",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "prices"],
+          "query": [
+            {
+              "key": "applicationDate",
+              "value": "2020-06-14T10:00:00"
+            },
+            {
+              "key": "productId",
+              "value": "99999"
+            },
+            {
+              "key": "brandId",
+              "value": "1"
+            }
+          ]
+        },
+        "description": "Request for a product that does not exist in the database.\nExpected: 404 Not Found."
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status 404', () => pm.response.to.have.status(404));"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    }
+  ]
+}
