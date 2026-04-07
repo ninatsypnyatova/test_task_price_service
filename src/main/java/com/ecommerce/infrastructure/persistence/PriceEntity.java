@@ -6,12 +6,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.Getter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Getter
 @Entity
 @Table(name = "PRICES")
 public class PriceEntity {
@@ -46,4 +44,40 @@ public class PriceEntity {
 
     @Column(name = "CURR", nullable = false, length = 3)
     private String currency;
+
+    public Long getId() {
+        return id;
+    }
+
+    public Long getBrandId() {
+        return brandId;
+    }
+
+    public LocalDateTime getStartDate() {
+        return startDate;
+    }
+
+    public LocalDateTime getEndDate() {
+        return endDate;
+    }
+
+    public Integer getPriceList() {
+        return priceList;
+    }
+
+    public Long getProductId() {
+        return productId;
+    }
+
+    public Integer getPriority() {
+        return priority;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
 }
