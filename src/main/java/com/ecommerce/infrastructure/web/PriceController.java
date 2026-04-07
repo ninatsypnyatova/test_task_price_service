@@ -2,6 +2,7 @@ package com.ecommerce.infrastructure.web;
 
 import com.ecommerce.domain.model.Price;
 import com.ecommerce.domain.port.in.GetPriceUseCase;
+import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,13 +15,10 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/prices")
+@RequiredArgsConstructor
 public class PriceController {
 
     private final GetPriceUseCase getPriceUseCase;
-
-    public PriceController(GetPriceUseCase getPriceUseCase) {
-        this.getPriceUseCase = getPriceUseCase;
-    }
 
     @GetMapping
     public ResponseEntity<PriceResponse> getPrice(
