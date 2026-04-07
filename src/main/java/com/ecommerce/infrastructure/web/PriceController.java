@@ -19,6 +19,7 @@ import java.util.Optional;
 public class PriceController {
 
     private final GetPriceUseCase getPriceUseCase;
+    private final PriceMapper priceMapper;
 
     @GetMapping
     public ResponseEntity<PriceResponse> getPrice(
@@ -29,19 +30,7 @@ public class PriceController {
         Optional<Price> price = getPriceUseCase.getPrice(applicationDate, productId, brandId);
 
         return price
-                .map(p -> ResponseEntity.ok(toResponse(p)))
+                .map(p -> ResponseEntity.ok(priceMapper.toResponse(p)))
                 .orElse(ResponseEntity.notFound().build());
-    }
-
-    private PriceResponse toResponse(Price price) {
-        return new PriceResponse(
-                price.productId(),
-                price.brandId(),
-                price.priceList(),
-                price.startDate(),
-                price.endDate(),
-                price.price(),
-                price.currency()
-        );
     }
 }
