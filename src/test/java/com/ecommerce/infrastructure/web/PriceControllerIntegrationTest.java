@@ -24,7 +24,7 @@ class PriceControllerIntegrationTest {
      */
     @Test
     void test1_requestAt10hOn14th() throws Exception {
-        mockMvc.perform(get("/api/prices")
+        mockMvc.perform(get("/api/v1/prices")
                         .param("applicationDate", "2020-06-14T10:00:00")
                         .param("productId", "35455")
                         .param("brandId", "1")
@@ -43,7 +43,7 @@ class PriceControllerIntegrationTest {
      */
     @Test
     void test2_requestAt16hOn14th() throws Exception {
-        mockMvc.perform(get("/api/prices")
+        mockMvc.perform(get("/api/v1/prices")
                         .param("applicationDate", "2020-06-14T16:00:00")
                         .param("productId", "35455")
                         .param("brandId", "1")
@@ -62,7 +62,7 @@ class PriceControllerIntegrationTest {
      */
     @Test
     void test3_requestAt21hOn14th() throws Exception {
-        mockMvc.perform(get("/api/prices")
+        mockMvc.perform(get("/api/v1/prices")
                         .param("applicationDate", "2020-06-14T21:00:00")
                         .param("productId", "35455")
                         .param("brandId", "1")
@@ -81,7 +81,7 @@ class PriceControllerIntegrationTest {
      */
     @Test
     void test4_requestAt10hOn15th() throws Exception {
-        mockMvc.perform(get("/api/prices")
+        mockMvc.perform(get("/api/v1/prices")
                         .param("applicationDate", "2020-06-15T10:00:00")
                         .param("productId", "35455")
                         .param("brandId", "1")
@@ -100,7 +100,7 @@ class PriceControllerIntegrationTest {
      */
     @Test
     void test5_requestAt21hOn16th() throws Exception {
-        mockMvc.perform(get("/api/prices")
+        mockMvc.perform(get("/api/v1/prices")
                         .param("applicationDate", "2020-06-16T21:00:00")
                         .param("productId", "35455")
                         .param("brandId", "1")
@@ -111,5 +111,19 @@ class PriceControllerIntegrationTest {
                 .andExpect(jsonPath("$.priceList").value(4))
                 .andExpect(jsonPath("$.price").value(38.95))
                 .andExpect(jsonPath("$.currency").value("EUR"));
+    }
+
+    /**
+     * Test 6: Request for a product/brand combination that does not exist.
+     * Expected: 404 Not Found.
+     */
+    @Test
+    void test6_priceNotFound_returns404() throws Exception {
+        mockMvc.perform(get("/api/v1/prices")
+                        .param("applicationDate", "2020-06-14T10:00:00")
+                        .param("productId", "99999")
+                        .param("brandId", "99")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
     }
 }
