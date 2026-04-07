@@ -2,18 +2,16 @@ package com.ecommerce.infrastructure.persistence;
 
 import com.ecommerce.domain.model.Price;
 import com.ecommerce.domain.port.out.PriceRepositoryPort;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+@RequiredArgsConstructor
 public class PriceRepositoryAdapter implements PriceRepositoryPort {
 
     private final JpaPriceRepository jpaPriceRepository;
-
-    public PriceRepositoryAdapter(JpaPriceRepository jpaPriceRepository) {
-        this.jpaPriceRepository = jpaPriceRepository;
-    }
 
     @Override
     public Optional<Price> findApplicablePrice(LocalDateTime applicationDate, Long productId, Long brandId) {
