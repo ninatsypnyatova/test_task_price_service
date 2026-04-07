@@ -191,19 +191,3 @@ Run them with:
 ```bash
 mvn test
 ```
-
----
-
-## Tech requirements — evaluation checklist
-
-| Criterion | Status |
-|---|---|
-| Hexagonal architecture (ports & adapters) | ✅ |
-| H2 in-memory database with seed data | ✅ |
-| GET endpoint with correct HTTP semantics | ✅ |
-| Single result returned based on priority | ✅ |
-| Input: applicationDate, productId, brandId | ✅ |
-| Output: productId, brandId, priceList, dates, price | ✅ |
-| Integration tests for all 5 scenarios | ✅ |
-| SOLID principles | ✅ |
-| Version control with meaningful commits | ✅ |
