@@ -1,10 +1,6 @@
 # test_ecommerce
 Spring Boot application/service that provides a REST query endpoint that:  Accepts as input: Application date, product identifier, and brand identifier.  Returns as output: Product identifier, brand identifier, tariff to apply, application dates, and the final price to be applied.
 
-It looks like you've got a classic technical assessment on your hands! This is a very common Java/Spring Boot challenge used to evaluate clean architecture and problem-solving skills.
-
-Here is the thorough English translation of the evaluation criteria and the technical requirements.
-
 ---
 
 ## Test Evaluation Criteria
