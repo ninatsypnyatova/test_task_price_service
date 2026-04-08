@@ -19,11 +19,12 @@ src/
 ├── main/java/com/ecommerce/
 │   ├── EcommerceApplication.java          # Spring Boot entry point
 │   ├── ApplicationConfig.java             # Bean wiring
+│   ├── application/
+│   │   └── service/GetPriceService.java   # Application service
 │   ├── domain/
 │   │   ├── model/Price.java               # Domain model
 │   │   ├── port/in/GetPriceUseCase.java   # Input port (interface)
-│   │   ├── port/out/PriceRepositoryPort.java # Output port (interface)
-│   │   └── service/GetPriceService.java   # Domain service
+│   │   └── port/out/PriceRepositoryPort.java # Output port (interface)
 │   └── infrastructure/
 │       ├── persistence/
 │       │   ├── PriceEntity.java           # JPA entity
@@ -31,6 +32,7 @@ src/
 │       │   └── PriceRepositoryAdapter.java # Output port adapter
 │       └── web/
 │           ├── PriceController.java       # REST controller
+│           ├── PriceMapper.java           # Domain-to-response mapper
 │           └── PriceResponse.java         # Response DTO
 └── main/resources/
     ├── application.properties
