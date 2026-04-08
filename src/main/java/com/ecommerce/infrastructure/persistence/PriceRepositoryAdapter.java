@@ -3,6 +3,7 @@ package com.ecommerce.infrastructure.persistence;
 import com.ecommerce.domain.model.Price;
 import com.ecommerce.domain.port.out.PriceRepositoryPort;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 
 import java.time.LocalDateTime;
@@ -15,6 +16,7 @@ import java.util.Optional;
  * model and the JPA persistence mechanism. It queries the database via
  * {@link JpaPriceRepository} and converts the result into a domain {@link Price} record.</p>
  */
+@Slf4j
 @RequiredArgsConstructor
 public class PriceRepositoryAdapter implements PriceRepositoryPort {
 
@@ -29,11 +31,14 @@ public class PriceRepositoryAdapter implements PriceRepositoryPort {
      */
     @Override
     public Optional<Price> findApplicablePrice(LocalDateTime applicationDate, Long productId, Long brandId) {
-        return jpaPriceRepository
+        log.debug("Fetching applicable price from repository: applicationDate={}, productId={}, brandId={}", applicationDate, productId, brandId);
+        Optional<Price> result = jpaPriceRepository
                 .findTopByBrandIdAndProductIdAndDateRange(brandId, productId, applicationDate, PageRequest.of(0, 1))
                 .stream()
                 .findFirst()
                 .map(this::toPrice);
+        log.debug("Repository returned: {}", result.orElse(null));
+        return result;
     }
 
     /**

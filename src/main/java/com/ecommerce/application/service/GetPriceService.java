@@ -4,6 +4,7 @@ import com.ecommerce.domain.model.Price;
 import com.ecommerce.domain.port.in.GetPriceUseCase;
 import com.ecommerce.domain.port.out.PriceRepositoryPort;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -15,6 +16,7 @@ import java.util.Optional;
  * keeping the domain logic free of infrastructure concerns. The repository is responsible
  * for returning only the highest-priority tariff when multiple tariffs overlap.</p>
  */
+@Slf4j
 @RequiredArgsConstructor
 public class GetPriceService implements GetPriceUseCase {
 
@@ -28,6 +30,9 @@ public class GetPriceService implements GetPriceUseCase {
      */
     @Override
     public Optional<Price> getPrice(LocalDateTime applicationDate, Long productId, Long brandId) {
-        return priceRepositoryPort.findApplicablePrice(applicationDate, productId, brandId);
+        log.debug("Querying applicable price: applicationDate={}, productId={}, brandId={}", applicationDate, productId, brandId);
+        Optional<Price> result = priceRepositoryPort.findApplicablePrice(applicationDate, productId, brandId);
+        log.debug("Price query result: {}", result.orElse(null));
+        return result;
     }
 }
