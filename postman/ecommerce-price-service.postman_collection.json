@@ -29,9 +29,9 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "{{baseUrl}}/api/prices?applicationDate=2020-06-14T10:00:00&productId={{productId}}&brandId={{brandId}}",
+          "raw": "{{baseUrl}}/api/v1/prices?applicationDate=2020-06-14T10:00:00&productId={{productId}}&brandId={{brandId}}",
           "host": ["{{baseUrl}}"],
-          "path": ["api", "prices"],
+          "path": ["api", "v1", "prices"],
           "query": [
             {
               "key": "applicationDate",
@@ -74,9 +74,9 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "{{baseUrl}}/api/prices?applicationDate=2020-06-14T16:00:00&productId={{productId}}&brandId={{brandId}}",
+          "raw": "{{baseUrl}}/api/v1/prices?applicationDate=2020-06-14T16:00:00&productId={{productId}}&brandId={{brandId}}",
           "host": ["{{baseUrl}}"],
-          "path": ["api", "prices"],
+          "path": ["api", "v1", "prices"],
           "query": [
             {
               "key": "applicationDate",
@@ -116,9 +116,9 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "{{baseUrl}}/api/prices?applicationDate=2020-06-14T21:00:00&productId={{productId}}&brandId={{brandId}}",
+          "raw": "{{baseUrl}}/api/v1/prices?applicationDate=2020-06-14T21:00:00&productId={{productId}}&brandId={{brandId}}",
           "host": ["{{baseUrl}}"],
-          "path": ["api", "prices"],
+          "path": ["api", "v1", "prices"],
           "query": [
             {
               "key": "applicationDate",
@@ -158,9 +158,9 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "{{baseUrl}}/api/prices?applicationDate=2020-06-15T10:00:00&productId={{productId}}&brandId={{brandId}}",
+          "raw": "{{baseUrl}}/api/v1/prices?applicationDate=2020-06-15T10:00:00&productId={{productId}}&brandId={{brandId}}",
           "host": ["{{baseUrl}}"],
-          "path": ["api", "prices"],
+          "path": ["api", "v1", "prices"],
           "query": [
             {
               "key": "applicationDate",
@@ -200,9 +200,9 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "{{baseUrl}}/api/prices?applicationDate=2020-06-16T21:00:00&productId={{productId}}&brandId={{brandId}}",
+          "raw": "{{baseUrl}}/api/v1/prices?applicationDate=2020-06-16T21:00:00&productId={{productId}}&brandId={{brandId}}",
           "host": ["{{baseUrl}}"],
-          "path": ["api", "prices"],
+          "path": ["api", "v1", "prices"],
           "query": [
             {
               "key": "applicationDate",
@@ -242,9 +242,9 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "{{baseUrl}}/api/prices?applicationDate=2020-06-14T10:00:00&productId=99999&brandId=1",
+          "raw": "{{baseUrl}}/api/v1/prices?applicationDate=2020-06-14T10:00:00&productId=99999&brandId=1",
           "host": ["{{baseUrl}}"],
-          "path": ["api", "prices"],
+          "path": ["api", "v1", "prices"],
           "query": [
             {
               "key": "applicationDate",
