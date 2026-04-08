@@ -65,6 +65,20 @@ The service starts on **http://localhost:8080**.
 mvn test
 ```
 
+### Run tests with coverage
+
+```bash
+mvn verify
+```
+
+The JaCoCo coverage report is generated at `target/site/jacoco/index.html`.
+
+### Run integration tests only
+
+```bash
+mvn test -Dtest=PriceControllerIntegrationTest
+```
+
 ### Build a JAR
 
 ```bash
@@ -76,7 +90,7 @@ java -jar target/test-ecommerce-0.0.1-SNAPSHOT.jar
 
 ## API
 
-### `GET /api/prices`
+### `GET /api/v1/prices`
 
 Returns the applicable price tariff for the given product, brand, and datetime.
 
@@ -120,19 +134,19 @@ Returned when no tariff is active for the given combination of product, brand, a
 
 ```bash
 # Test 1 – 10:00 on 14th → price list 1, €35.50
-curl "http://localhost:8080/api/prices?applicationDate=2020-06-14T10:00:00&productId=35455&brandId=1"
+curl "http://localhost:8080/api/v1/prices?applicationDate=2020-06-14T10:00:00&productId=35455&brandId=1"
 
 # Test 2 – 16:00 on 14th → price list 2, €25.45
-curl "http://localhost:8080/api/prices?applicationDate=2020-06-14T16:00:00&productId=35455&brandId=1"
+curl "http://localhost:8080/api/v1/prices?applicationDate=2020-06-14T16:00:00&productId=35455&brandId=1"
 
 # Test 3 – 21:00 on 14th → price list 1, €35.50
-curl "http://localhost:8080/api/prices?applicationDate=2020-06-14T21:00:00&productId=35455&brandId=1"
+curl "http://localhost:8080/api/v1/prices?applicationDate=2020-06-14T21:00:00&productId=35455&brandId=1"
 
 # Test 4 – 10:00 on 15th → price list 3, €30.50
-curl "http://localhost:8080/api/prices?applicationDate=2020-06-15T10:00:00&productId=35455&brandId=1"
+curl "http://localhost:8080/api/v1/prices?applicationDate=2020-06-15T10:00:00&productId=35455&brandId=1"
 
 # Test 5 – 21:00 on 16th → price list 4, €38.95
-curl "http://localhost:8080/api/prices?applicationDate=2020-06-16T21:00:00&productId=35455&brandId=1"
+curl "http://localhost:8080/api/v1/prices?applicationDate=2020-06-16T21:00:00&productId=35455&brandId=1"
 ```
 
 ---
@@ -173,6 +187,12 @@ Five `@SpringBootTest` integration tests cover every required scenario:
 | Test 5 | 2020-06-16 21:00 | 4 | €38.95 |
 
 Run them with:
+
+```bash
+mvn test -Dtest=PriceControllerIntegrationTest
+```
+
+Or together with all other tests:
 
 ```bash
 mvn test
