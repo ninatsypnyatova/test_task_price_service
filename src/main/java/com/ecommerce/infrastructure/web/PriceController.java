@@ -4,6 +4,7 @@ import com.ecommerce.domain.model.Price;
 import com.ecommerce.domain.port.in.GetPriceUseCase;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -23,6 +24,7 @@ import java.util.Optional;
  * {@link PriceResponse} body when a matching tariff is found, or {@code 404 Not Found}
  * when no applicable tariff exists.</p>
  */
+@Slf4j
 @RestController
 @RequestMapping("/api/v1/prices")
 @RequiredArgsConstructor
@@ -48,7 +50,15 @@ public class PriceController {
             @RequestParam @NotNull Long productId,
             @RequestParam @NotNull Long brandId) {
 
+        log.info("Received price query: applicationDate={}, productId={}, brandId={}", applicationDate, productId, brandId);
+
         Optional<Price> price = getPriceUseCase.getPrice(applicationDate, productId, brandId);
+
+        if (price.isPresent()) {
+            log.debug("Price found for productId={}, brandId={}: {}", productId, brandId, price.get());
+        } else {
+            log.warn("No price found for productId={}, brandId={}, applicationDate={}", productId, brandId, applicationDate);
+        }
 
         return price
                 .map(p -> ResponseEntity.ok(priceMapper.toResponse(p)))
