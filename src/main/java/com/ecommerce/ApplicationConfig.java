@@ -4,6 +4,7 @@ import com.ecommerce.domain.port.in.GetPriceUseCase;
 import com.ecommerce.domain.port.out.PriceRepositoryPort;
 import com.ecommerce.application.service.GetPriceService;
 import com.ecommerce.infrastructure.persistence.JpaPriceRepository;
+import com.ecommerce.infrastructure.persistence.PriceEntityMapper;
 import com.ecommerce.infrastructure.persistence.PriceRepositoryAdapter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,11 +23,13 @@ public class ApplicationConfig {
      * Creates the {@link PriceRepositoryPort} output-port bean backed by the JPA repository.
      *
      * @param jpaPriceRepository the Spring Data JPA repository used by the adapter
+     * @param priceEntityMapper  the mapper used to convert entities to domain objects
      * @return a {@link PriceRepositoryAdapter} that implements {@link PriceRepositoryPort}
      */
     @Bean
-    public PriceRepositoryPort priceRepositoryPort(JpaPriceRepository jpaPriceRepository) {
-        return new PriceRepositoryAdapter(jpaPriceRepository);
+    public PriceRepositoryPort priceRepositoryPort(JpaPriceRepository jpaPriceRepository,
+                                                   PriceEntityMapper priceEntityMapper) {
+        return new PriceRepositoryAdapter(jpaPriceRepository, priceEntityMapper);
     }
 
     /**

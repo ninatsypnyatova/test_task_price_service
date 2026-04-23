@@ -2,8 +2,7 @@ package com.ecommerce.domain.port.out;
 
 import com.ecommerce.domain.model.Price;
 
-import java.time.LocalDateTime;
-import java.util.Optional;
+import java.util.List;
 
 /**
  * Output port (secondary port) for querying prices from an external data source.
@@ -15,16 +14,14 @@ import java.util.Optional;
 public interface PriceRepositoryPort {
 
     /**
-     * Finds the applicable price tariff for the given product, brand, and point in time.
+     * Returns all price tariffs for the given product and brand.
      *
-     * <p>When multiple tariffs are active for the same product and brand, the implementation
-     * must return only the one with the highest priority.</p>
+     * <p>No date filtering or priority ordering is applied — that logic belongs
+     * in the application service layer.</p>
      *
-     * @param applicationDate the date and time to look up
-     * @param productId       the product identifier
-     * @param brandId         the brand identifier
-     * @return an {@link Optional} containing the highest-priority matching {@link Price},
-     *         or empty if no tariff is active at the requested date
+     * @param productId the product identifier
+     * @param brandId   the brand identifier
+     * @return list of all {@link Price} records for the given product and brand
      */
-    Optional<Price> findApplicablePrice(LocalDateTime applicationDate, Long productId, Long brandId);
+    List<Price> findByProductAndBrand(Long productId, Long brandId);
 }
