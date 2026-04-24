@@ -53,8 +53,8 @@ class PriceRepositoryAdapterTest {
 
         assertThat(result).isPresent();
         Price price = result.get();
-        assertThat(price.brandId()).isEqualTo(brandId);
-        assertThat(price.productId()).isEqualTo(productId);
+        assertThat(price.brandId().value()).isEqualTo(brandId);
+        assertThat(price.productId().value()).isEqualTo(productId);
         assertThat(price.priceList()).isEqualTo(1);
         assertThat(price.price()).isEqualByComparingTo("35.50");
         assertThat(price.currency()).isEqualTo("EUR");

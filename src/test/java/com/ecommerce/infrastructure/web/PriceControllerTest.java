@@ -1,6 +1,8 @@
 package com.ecommerce.infrastructure.web;
 
+import com.ecommerce.domain.model.BrandId;
 import com.ecommerce.domain.model.Price;
+import com.ecommerce.domain.model.ProductId;
 import com.ecommerce.domain.port.in.GetPriceUseCase;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +39,7 @@ class PriceControllerTest {
         LocalDateTime date = LocalDateTime.of(2020, 6, 14, 10, 0);
         Long productId = 35455L;
         Long brandId = 1L;
-        Price price = new Price(brandId, date, date.plusDays(1), 1, productId, 0,
+        Price price = new Price(new BrandId(brandId), date, date.plusDays(1), 1, new ProductId(productId), 0,
                 new BigDecimal("35.50"), "EUR");
         PriceResponse response = new PriceResponse(productId, brandId, 1, date, date.plusDays(1),
                 new BigDecimal("35.50"), "EUR");

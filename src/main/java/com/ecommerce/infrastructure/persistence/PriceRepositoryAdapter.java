@@ -1,6 +1,8 @@
 package com.ecommerce.infrastructure.persistence;
 
+import com.ecommerce.domain.model.BrandId;
 import com.ecommerce.domain.model.Price;
+import com.ecommerce.domain.model.ProductId;
 import com.ecommerce.domain.port.out.PriceRepositoryPort;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -49,11 +51,11 @@ public class PriceRepositoryAdapter implements PriceRepositoryPort {
      */
     private Price toPrice(PriceEntity entity) {
         return new Price(
-                entity.getBrandId(),
+                new BrandId(entity.getBrandId()),
                 entity.getStartDate(),
                 entity.getEndDate(),
                 entity.getPriceList(),
-                entity.getProductId(),
+                new ProductId(entity.getProductId()),
                 entity.getPriority(),
                 entity.getPrice(),
                 entity.getCurrency()
