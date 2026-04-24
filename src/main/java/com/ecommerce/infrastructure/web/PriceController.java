@@ -1,5 +1,6 @@
 package com.ecommerce.infrastructure.web;
 
+import com.ecommerce.domain.exception.PriceNotFoundException;
 import com.ecommerce.domain.model.Price;
 import com.ecommerce.domain.port.in.GetPriceUseCase;
 import jakarta.validation.constraints.NotNull;
@@ -41,8 +42,8 @@ public class PriceController {
      *                        (e.g. {@code 2020-06-14T10:00:00})
      * @param productId       the product identifier
      * @param brandId         the brand identifier (e.g. 1 = ZARA)
-     * @return {@code 200 OK} with a {@link PriceResponse} body, or {@code 404 Not Found}
-     *         if no tariff is active for the given combination of parameters
+     * @return {@code 200 OK} with a {@link PriceResponse} body
+     * @throws PriceNotFoundException if no tariff is active for the given combination of parameters
      */
     @GetMapping
     public ResponseEntity<PriceResponse> getPrice(
@@ -62,6 +63,6 @@ public class PriceController {
 
         return price
                 .map(p -> ResponseEntity.ok(priceMapper.toResponse(p)))
-                .orElse(ResponseEntity.notFound().build());
+                .orElseThrow(() -> new PriceNotFoundException(productId, brandId, applicationDate));
     }
 }

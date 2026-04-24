@@ -1,5 +1,6 @@
 package com.ecommerce;
 
+import com.ecommerce.application.validation.PriceRequestValidator;
 import com.ecommerce.domain.port.in.GetPriceUseCase;
 import com.ecommerce.domain.port.out.PriceRepositoryPort;
 import com.ecommerce.application.service.GetPriceService;
@@ -30,13 +31,25 @@ public class ApplicationConfig {
     }
 
     /**
+     * Creates the {@link PriceRequestValidator} bean used by the application service.
+     *
+     * @return a stateless {@link PriceRequestValidator} instance
+     */
+    @Bean
+    public PriceRequestValidator priceRequestValidator() {
+        return new PriceRequestValidator();
+    }
+
+    /**
      * Creates the {@link GetPriceUseCase} input-port bean backed by the domain service.
      *
-     * @param priceRepositoryPort the output port used by the service to query prices
+     * @param priceRepositoryPort    the output port used by the service to query prices
+     * @param priceRequestValidator  the validator used to check request parameters
      * @return a {@link GetPriceService} that implements {@link GetPriceUseCase}
      */
     @Bean
-    public GetPriceUseCase getPriceUseCase(PriceRepositoryPort priceRepositoryPort) {
-        return new GetPriceService(priceRepositoryPort);
+    public GetPriceUseCase getPriceUseCase(PriceRepositoryPort priceRepositoryPort,
+                                           PriceRequestValidator priceRequestValidator) {
+        return new GetPriceService(priceRepositoryPort, priceRequestValidator);
     }
 }
